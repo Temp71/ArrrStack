@@ -1,0 +1,134 @@
+services:
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    container_name: gluetun
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    environment:
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WIREGUARD_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WIREGUARD_ADDRESSES}
+      - SERVER_COUNTRIES=${SERVER_COUNTRIES}
+      - TZ=${TIME_ZONE}
+    ports:
+      - 8080:8080 # sabnzbd
+      - 3000:3000 # mullvadb
+      - 3001:3001 # mullvadb
+      - 5055:5055 # jellyseerr
+      - 8989:8989 # sonarr
+      - 7878:7878 # radarr
+      - 9696:9696 # prowlarr
+      - 8096:8096 # jellyfin
+    restart: unless-stopped
+  mullvad-browser:
+    image: lscr.io/linuxserver/mullvad-browser:latest
+    container_name: mullvad-browser
+    network_mode: service:gluetun
+    depends_on:
+      - gluetun
+    cap_add:
+      - NET_ADMIN
+    security_opt:
+      - seccomp:unconfined #optional
+    environment:
+      - PUID=568
+      - PGID=568
+      - TZ=${TIME_ZONE}
+      - LOCAL_NET= ${LOCAL_NET}#optional
+    volumes:
+      - /path/to/mullvad-browser/config:/config
+    shm_size: 1gb
+    restart: unless-stopped
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    network_mode: service:gluetun
+    depends_on:
+      - gluetun
+    environment:
+      - PUID=568
+      - PGID=568
+      - TZ=${TIME_ZONE}
+    volumes:
+      - /path/to/sabnzbd/config:/config
+      - /path/to/downloads:/downloads
+    restart: unless-stopped
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    network_mode: service:gluetun
+    depends_on:
+      - gluetun
+    environment:
+      - PUID=568
+      - PGID=568
+      - LOG_LEVEL=debug
+      - TZ=${TIME_ZONE}
+    volumes:
+      - /path/to/jellyseerr:/app/config
+    restart: unless-stopped
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    network_mode: service:gluetun
+    depends_on:
+      - gluetun
+    environment:
+      - PUID=568
+      - PGID=568
+      - TZ=${TIME_ZONE}
+    volumes:
+      - /path/to/sonarr:/config
+      - /path/to/media:/media
+      - /path/to/media/downloads:/downloads
+    restart: unless-stopped
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    network_mode: service:gluetun
+    depends_on:
+      - gluetun
+    environment:
+      - PUID=568
+      - PGID=568
+      - TZ=${TIME_ZONE}
+    volumes:
+      - /path/to/radarr:/config
+      - /path/to/media:/media
+      - /path/to/media/downloads:/downloads
+    restart: unless-stopped
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    network_mode: service:gluetun
+    depends_on:
+      - gluetun
+    environment:
+      - PUID=568
+      - PGID=568
+      - TZ=${TIME_ZONE}
+    volumes:
+      - /path/to/prowlarr:/config
+      - /path/to/media:/media
+    restart: unless-stopped
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    network_mode: service:gluetun
+    depends_on:
+      - gluetun
+    environment:
+      - PUID=568
+      - PGID=568
+      - TZ=${TIME_ZONE}
+      - JELLYFIN_PublishedServerUrl=http://192.168.0.5 #optional
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - /path/to/jellyfin/library:/config
+      - /path/to/media/serien:/data/tvshows
+      - /path/to/media/filme:/data/movies
+    restart: unless-stopped
+networks: {}
