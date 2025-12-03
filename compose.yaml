@@ -12,7 +12,7 @@ services:
       - WIREGUARD_PRIVATE_KEY=${WIREGUARD_PRIVATE_KEY}
       - WIREGUARD_ADDRESSES=${WIREGUARD_ADDRESSES}
       - SERVER_COUNTRIES=${SERVER_COUNTRIES}
-      - TZ=${TIME_ZONE}
+      - TZ=${TIMEZONE}
     ports:
       - 8080:8080 # sabnzbd
       - 3000:3000 # mullvadb
