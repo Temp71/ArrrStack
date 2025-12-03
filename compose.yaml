@@ -39,7 +39,7 @@ services:
       - TZ=${TIME_ZONE}
       - LOCAL_NET= ${LOCAL_NET}#optional
     volumes:
-      - /path/to/mullvad-browser/config:/config
+      - ${MULLVAD_BROWSER_CONFIG_PATH}:/config
     shm_size: 1gb
     restart: unless-stopped
   sabnzbd:
@@ -53,8 +53,8 @@ services:
       - PGID=568
       - TZ=${TIME_ZONE}
     volumes:
-      - /path/to/sabnzbd/config:/config
-      - /path/to/downloads:/downloads
+      - ${SABNZBD_CONFIG_PATH}:/config
+      - ${SABNZBD_DOWNLOADS_PATH}:/downloads
     restart: unless-stopped
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
@@ -68,7 +68,7 @@ services:
       - LOG_LEVEL=debug
       - TZ=${TIME_ZONE}
     volumes:
-      - /path/to/jellyseerr:/app/config
+      - ${JELLYSEER_CONFIG_PATH}:/app/config
     restart: unless-stopped
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -81,9 +81,9 @@ services:
       - PGID=568
       - TZ=${TIME_ZONE}
     volumes:
-      - /path/to/sonarr:/config
-      - /path/to/media:/media
-      - /path/to/media/downloads:/downloads
+      - ${SONARR_CONFIG_PATH}:/config
+      - ${SONARR_MEDIA_PATH}:/media
+      - ${SONARR_MEDIA_DOWNLOADS_PATH}:/downloads
     restart: unless-stopped
   radarr:
     image: lscr.io/linuxserver/radarr:latest
@@ -96,9 +96,9 @@ services:
       - PGID=568
       - TZ=${TIME_ZONE}
     volumes:
-      - /path/to/radarr:/config
-      - /path/to/media:/media
-      - /path/to/media/downloads:/downloads
+      - ${SONARR_CONFIG_PATH}:/config
+      - ${SONARR_MEDIA_PATH}:/media
+      - ${SONARR_MEDIA_DOWNLOADS_PATH}:/downloads
     restart: unless-stopped
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
@@ -111,8 +111,8 @@ services:
       - PGID=568
       - TZ=${TIME_ZONE}
     volumes:
-      - /path/to/prowlarr:/config
-      - /path/to/media:/media
+      - ${PROWLARR_CONFIG_PATH}:/config
+      - ${PROWLARR_MEDIA_PATH}:/media
     restart: unless-stopped
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
@@ -127,8 +127,8 @@ services:
       - JELLYFIN_PublishedServerUrl=http://192.168.0.5 #optional
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
-      - /path/to/jellyfin/library:/config
-      - /path/to/media/serien:/data/tvshows
-      - /path/to/media/filme:/data/movies
+      - ${JELLYFIN_CONFIG_PATH}:/config
+      - ${JELLYFIN_TVSHOWS_PATH}:/data/tvshows
+      - ${JELLYFIN_MOVIE_PATH}:/data/movies
     restart: unless-stopped
 networks: {}
