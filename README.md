@@ -13,6 +13,6 @@ Services inside compose.yaml
 - Sabnzbd (.nzb Downloader)
 - Jellyseerr (request Movies/Series)
 - Sonarr (Series organizer)
-- Radarr (Movie organizer)
+- [Radarr](https://github.com/Radarr/Radarr) (Movie organizer)
 - Prowlarr (Usenet & Torrent Indexer Manager)
 - Jellyfin (Media Streaming Software)
