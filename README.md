@@ -8,11 +8,11 @@ ArrrStack
 
 
 Services inside compose.yaml
-- 🔒[Gluetun](https://github.com/qdm12/gluetun) (VPN)
-- 🌐[Mullvad Browser](https://github.com/mullvad/mullvad-browser)
-- ⬇️[Sabnzbd](https://github.com/sabnzbd/sabnzbd) (.nzb Downloader)
-- 📥[Jellyseerr](https://github.com/seerr-team/seerr) (request Movies/Series)
-- 📺[Sonarr](https://github.com/Sonarr/Sonarr) (Series organizer)
-- 🎬[Radarr](https://github.com/Radarr/Radarr) (Movie organizer)
-- 🔎[Prowlarr](https://github.com/Prowlarr/Prowlarr) (Usenet & Torrent Indexer Manager)
-- ▶️[Jellyfin](https://github.com/jellyfin/jellyfin) (Media Streaming Software)
+🔒[Gluetun](https://github.com/qdm12/gluetun) (VPN)
+🌐[Mullvad Browser](https://github.com/mullvad/mullvad-browser)
+⬇️[Sabnzbd](https://github.com/sabnzbd/sabnzbd) (.nzb Downloader)
+📥[Jellyseerr](https://github.com/seerr-team/seerr) (request Movies/Series)
+📺[Sonarr](https://github.com/Sonarr/Sonarr) (Series organizer)
+🎬[Radarr](https://github.com/Radarr/Radarr) (Movie organizer)
+🔎[Prowlarr](https://github.com/Prowlarr/Prowlarr) (Usenet & Torrent Indexer Manager)
+▶️[Jellyfin](https://github.com/jellyfin/jellyfin) (Media Streaming Software)
